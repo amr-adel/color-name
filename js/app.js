@@ -57,35 +57,42 @@ const getNearest = (sample, palette) => {
   const sampleClean = sample.replace("#", "").toLowerCase();
   const sampleRGB = hexToRGB(sampleClean);
 
-  let candidate = null;
+  let candidates = [];
 
   for (let color in palette) {
     const colorClean = palette[color].replace("#", "").toLowerCase();
     const colorRGB = hexToRGB(colorClean);
 
     if (sampleClean === colorClean)
-      return {
-        name: color,
-        hexValue: `#${colorClean}`,
-        distance: 0,
-        matchingPercentage: 100,
-      };
-    else {
-      if (!candidate || candidate.distance > getDistance(sampleRGB, colorRGB)) {
-        candidate = {
+      return [
+        {
           name: color,
           hexValue: `#${colorClean}`,
-          distance: getDistance(sampleRGB, colorRGB),
-        };
-      }
+          distance: 0,
+          matchingPercentage: 100,
+        },
+      ];
+    else {
+      candidates.push({
+        name: color,
+        hexValue: `#${colorClean}`,
+        distance: getDistance(sampleRGB, colorRGB),
+      });
     }
   }
 
-  return {
-    ...candidate,
-    // 195075 is the distance between white (255, 255, 255) and balck (0, 0, 0)
-    matchingPercentage: 100 - ((candidate.distance * 100) / 195075).toFixed(3),
-  };
+  const topCandidates = candidates
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 3)
+    .map((candidate) => {
+      return {
+        ...candidate,
+        // 195075 is the distance between white (255, 255, 255) and balck (0, 0, 0)
+        matchingPercentage: 100 - ((candidate.distance * 100) / 195075).toFixed(3),
+      };
+    });
+
+  return topCandidates;
 };
 
 const toTest = getRandomHexColor();
