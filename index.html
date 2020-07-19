@@ -3,11 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
     <script src="./js/app.js" type="module" defer></script>
     <link rel="stylesheet" href="css/style.css" />
-    <title>Nearest Color</title>
+    <title>ColorName</title>
   </head>
   <body>
-    <div id="colors"></div>
+    <header class="header">
+      <div class="container">
+        <h1 class="brand">Color<span class="yellow">Name</span></h1>
+        <div class="menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
+            <path
+              fill="currentColor"
+              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="top">
+        <div class="container">
+          <form action="" id="color-form">
+            <label for="color-input" class="color-input-label">#</label>
+            <input
+              type="text"
+              id="color-input"
+              placeholder="e9cb47"
+              spellcheck="false"
+            />
+          </form>
+          <button id="random" class="random" title="Random color">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+                fill="currentColor"
+                d="M504.971 359.029c9.373 9.373 9.373 24.569 0 33.941l-80 79.984c-15.01 15.01-40.971 4.49-40.971-16.971V416h-58.785a12.004 12.004 0 0 1-8.773-3.812l-70.556-75.596 53.333-57.143L352 336h32v-39.981c0-21.438 25.943-31.998 40.971-16.971l80 79.981zM12 176h84l52.781 56.551 53.333-57.143-70.556-75.596A11.999 11.999 0 0 0 122.785 96H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12zm372 0v39.984c0 21.46 25.961 31.98 40.971 16.971l80-79.984c9.373-9.373 9.373-24.569 0-33.941l-80-79.981C409.943 24.021 384 34.582 384 56.019V96h-58.785a12.004 12.004 0 0 0-8.773 3.812L96 336H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h110.785c3.326 0 6.503-1.381 8.773-3.812L352 176h32z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

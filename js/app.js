@@ -24,17 +24,13 @@ const palettes = [
 ];
 
 // Convert from hexadecimal to RGB format (color is a hexadecimal color)
-const hexToRGB = (color) =>
-  color
-    .replace("#", "")
-    .match(/.{2}/g)
-    .map((x) => parseInt(x, 16));
+const hexToRGB = (color) => color.match(/.{2}/g).map((x) => parseInt(x, 16));
 
 // Generate random hex color
 const getRandomHexColor = () => {
-  let colorCode = "#";
+  let colorCode = "";
 
-  while (colorCode.length < 7) {
+  while (colorCode.length < 6) {
     const newHex = Math.floor(Math.random() * 16).toString(16);
     colorCode += newHex;
   }
@@ -54,8 +50,7 @@ const getDistance = (color1, color2) => {
 
 // Get nearest color (sample is a hexdecimal color, palette is an object of {colorName: hexValue})
 const getNearest = (sample, palette) => {
-  const sampleClean = sample.replace("#", "").toLowerCase();
-  const sampleRGB = hexToRGB(sampleClean);
+  const sampleRGB = hexToRGB(sample);
 
   let candidates = [];
 
@@ -63,7 +58,7 @@ const getNearest = (sample, palette) => {
     const colorClean = palette[color].replace("#", "").toLowerCase();
     const colorRGB = hexToRGB(colorClean);
 
-    if (sampleClean === colorClean)
+    if (sample === colorClean)
       return [
         {
           name: color,
@@ -88,19 +83,52 @@ const getNearest = (sample, palette) => {
       return {
         ...candidate,
         // 195075 is the distance between white (255, 255, 255) and balck (0, 0, 0)
-        matchingPercentage: 100 - ((candidate.distance * 100) / 195075).toFixed(3),
+        matchingPercentage:
+          100 - ((candidate.distance * 100) / 195075).toFixed(3),
       };
     });
 
   return topCandidates;
 };
 
-const toTest = getRandomHexColor();
+// RUN APP ==========================================================================
+const run = (color) => {
+  console.clear();
+  console.time();
+  for (let palette of palettes) {
+    console.log(palette.name, getNearest(color, palette.palette));
+  }
+  console.timeEnd();
+};
 
-console.time();
+// EVENT LISTENERS ==========================================================================
+let cleanInput;
+let lastColor = "";
+const colorInput = elm("#color-input");
 
-for (let palette of palettes) {
-  console.log(palette.name, getNearest(toTest, palette.palette));
-}
+colorInput.addEventListener("focus", (event) => {
+  cleanInput = setInterval(() => {
+    const validHex = /\b[\da-f]{6}\b/g;
+    const input = event.target;
+    input.value = input.value.replace(/[^\da-fA-F]/g, "").toLowerCase();
 
-console.timeEnd();
+    if (input.value !== lastColor && validHex.test(input.value)) {
+      lastColor = input.value;
+      input.blur();
+      run(input.value);
+    } else {
+      console.log("Cleaned!");
+    }
+  }, 50);
+});
+
+colorInput.addEventListener("blur", () => {
+  clearInterval(cleanInput);
+});
+
+elm("#random").addEventListener("click", () => {
+  const color = getRandomHexColor();
+  colorInput.value = color;
+  lastColor = color;
+  run(color);
+});
