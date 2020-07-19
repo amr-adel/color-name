@@ -59,22 +59,11 @@ const getNearest = (sample, palette) => {
     const colorClean = palette[color].replace("#", "").toLowerCase();
     const colorRGB = hexToRGB(colorClean);
 
-    if (sample === colorClean)
-      return [
-        {
-          name: color,
-          hexValue: `#${colorClean}`,
-          distance: 0,
-          matchingPercentage: 100,
-        },
-      ];
-    else {
-      candidates.push({
-        name: color,
-        hexValue: `#${colorClean}`,
-        distance: getDistance(sampleRGB, colorRGB),
-      });
-    }
+    candidates.push({
+      name: color,
+      hexValue: `#${colorClean}`,
+      distance: getDistance(sampleRGB, colorRGB),
+    });
   }
 
   const topCandidates = candidates
