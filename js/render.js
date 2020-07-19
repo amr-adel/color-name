@@ -38,7 +38,9 @@ const render = (color, result) => {
           className: "single-result-main",
           id: `${prefix}-${i}-main`,
           innerText: color.name,
-          style: `color: var(--dark); background-color: ${color.hexValue}`,
+          style: `color: var(--${
+            color.darkText ? "dark" : "light"
+          }); background-color: ${color.hexValue}`,
         });
         singleResult.appendChild(main);
 
@@ -69,7 +71,9 @@ const render = (color, result) => {
       palette.colors.forEach((color, i) => {
         const main = elm(`#${prefix}-${i}-main`);
         main.innerText = color.name;
-        main.style = `color: var(--dark); background-color: ${color.hexValue}`;
+        main.style = `color: var(--${
+          color.darkText ? "dark" : "light"
+        }); background-color: ${color.hexValue}`;
 
         const hex = elm(`#${prefix}-${i}-hex`);
         hex.innerText = color.hexValue.replace("#", "");

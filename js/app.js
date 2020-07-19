@@ -70,8 +70,15 @@ const getNearest = (sample, palette) => {
     .sort((a, b) => a.distance - b.distance)
     .slice(0, 3)
     .map((candidate) => {
+      const candidateRGB = hexToRGB(candidate.hexValue.replace("#", ""));
+      // For best contrast against hexValue (background color)
+      const darkText =
+        getDistance(hexToRGB("484e4a"), candidateRGB) >
+        getDistance(hexToRGB("eff0ea"), candidateRGB);
+
       return {
         ...candidate,
+        darkText,
         // 195075 is the distance between white (255, 255, 255) and balck (0, 0, 0)
         matchingPercentage:
           100 - ((candidate.distance * 100) / 195075).toFixed(3),
