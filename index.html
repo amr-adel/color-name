@@ -9,10 +9,7 @@
       integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
       crossorigin="anonymous"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
     <script src="./js/app.js" type="module" defer></script>
     <link rel="stylesheet" href="css/style.css" />
     <title>ColorName</title>
@@ -21,14 +18,14 @@
     <header class="header">
       <div class="container">
         <h1 class="brand">Color<span class="yellow">Name</span></h1>
-        <div class="menu">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
-            <path
-              fill="currentColor"
-              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-            ></path>
+        <button class="menu-toggle" data-state="hidden" id="menu-toggle">
+          <svg class="hidden">
+            <use href="./images/icons.svg#menu"></use>
           </svg>
-        </div>
+          <svg class="visible">
+            <use href="./images/icons.svg#close"></use>
+          </svg>
+        </button>
       </div>
     </header>
 
@@ -37,12 +34,7 @@
         <div class="container">
           <form action="" id="color-form">
             <label for="color-input" class="color-input-label">#</label>
-            <input
-              type="text"
-              id="color-input"
-              placeholder="e9cb47"
-              spellcheck="false"
-            />
+            <input type="text" id="color-input" placeholder="e9cb47" spellcheck="false" />
           </form>
           <button id="random" class="random" title="Random color">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -58,5 +50,11 @@
         <div id="results" class="container"></div>
       </section>
     </main>
+
+    <aside class="menu-body" id="menu-body" data-state="hidden">
+      <div class="container">
+        menu
+      </div>
+    </aside>
   </body>
 </html>

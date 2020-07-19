@@ -4,6 +4,7 @@ import materializePalette from "./materializePalette.js";
 import tailwindPalette from "./tailwindPalette.js";
 import { elm, create } from "./helpers.js";
 import render from "./render.js";
+import handleMenu from "./handelMenu.js";
 
 const palettes = [
   {
@@ -72,16 +73,13 @@ const getNearest = (sample, palette) => {
     .map((candidate) => {
       const candidateRGB = hexToRGB(candidate.hexValue.replace("#", ""));
       // For best contrast against hexValue (background color)
-      const darkText =
-        getDistance(hexToRGB("484e4a"), candidateRGB) >
-        getDistance(hexToRGB("eff0ea"), candidateRGB);
+      const darkText = getDistance(hexToRGB("484e4a"), candidateRGB) > getDistance(hexToRGB("eff0ea"), candidateRGB);
 
       return {
         ...candidate,
         darkText,
         // 195075 is the distance between white (255, 255, 255) and balck (0, 0, 0)
-        matchingPercentage:
-          100 - ((candidate.distance * 100) / 195075).toFixed(3),
+        matchingPercentage: 100 - ((candidate.distance * 100) / 195075).toFixed(3),
       };
     });
 
@@ -111,6 +109,7 @@ let cleanInput;
 let lastColor = "";
 const colorInput = elm("#color-input");
 
+// On input focus, clean value and run app when it's a valid hex color
 colorInput.addEventListener("focus", (event) => {
   cleanInput = setInterval(() => {
     const validHex = /\b[\da-f]{6}\b/g;
@@ -127,13 +126,22 @@ colorInput.addEventListener("focus", (event) => {
   }, 50);
 });
 
+// Remove input clean on blur
 colorInput.addEventListener("blur", () => {
   clearInterval(cleanInput);
 });
 
+// Get random hex color and run app
 elm("#random").addEventListener("click", () => {
   const color = getRandomHexColor();
   colorInput.value = color;
   lastColor = color;
   run(color);
+});
+
+// Toggle menu
+const toggle = elm("#menu-toggle");
+toggle.addEventListener("click", () => {
+  const toState = toggle.dataset.state === "hidden" ? "visible" : "hidden";
+  return handleMenu(toState);
 });
