@@ -3,6 +3,7 @@ import cssPalette from "./cssPalette.js";
 import materializePalette from "./materializePalette.js";
 import tailwindPalette from "./tailwindPalette.js";
 import { elm, create } from "./helpers.js";
+import render from "./render.js";
 
 const palettes = [
   {
@@ -95,9 +96,17 @@ const getNearest = (sample, palette) => {
 const run = (color) => {
   console.clear();
   console.time();
+
+  let result = [];
+
   for (let palette of palettes) {
-    console.log(palette.name, getNearest(color, palette.palette));
+    result.push({
+      name: palette.name,
+      colors: getNearest(color, palette.palette),
+    });
   }
+
+  render(color, result);
   console.timeEnd();
 };
 
