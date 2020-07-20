@@ -73,13 +73,16 @@ const getNearest = (sample, palette) => {
     .map((candidate) => {
       const candidateRGB = hexToRGB(candidate.hexValue.replace("#", ""));
       // For best contrast against hexValue (background color)
-      const darkText = getDistance(hexToRGB("484e4a"), candidateRGB) > getDistance(hexToRGB("eff0ea"), candidateRGB);
+      const darkText =
+        getDistance(hexToRGB("484e4a"), candidateRGB) >
+        getDistance(hexToRGB("eff0ea"), candidateRGB);
 
       return {
         ...candidate,
         darkText,
         // 195075 is the distance between white (255, 255, 255) and balck (0, 0, 0)
-        matchingPercentage: 100 - ((candidate.distance * 100) / 195075).toFixed(3),
+        matchingPercentage:
+          100 - ((candidate.distance * 100) / 195075).toFixed(3),
       };
     });
 
@@ -144,4 +147,13 @@ const toggle = elm("#menu-toggle");
 toggle.addEventListener("click", () => {
   const toState = toggle.dataset.state === "hidden" ? "visible" : "hidden";
   return handleMenu(toState);
+});
+
+// Scroll to top
+elm("#to-top").addEventListener("click", () => {
+  return window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
 });
