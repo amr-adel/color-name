@@ -1,5 +1,13 @@
 import { elm, create } from "./helpers.js";
 
+const handleAliases = (colorName) => {
+  if (colorName === "cyan") return "cyan, aqua";
+  else if (colorName === "magenta") return "magenta, fuchsia";
+  else if (colorName.includes("gray")) return `${colorName}(grey)`;
+
+  return colorName;
+};
+
 const render = (color, result) => {
   elm("body").classList = "result";
   elm("body").style.setProperty("--sample", `#${color}`);
@@ -37,7 +45,9 @@ const render = (color, result) => {
         const main = create("div", {
           className: "single-result-main",
           id: `${prefix}-${i}-main`,
-          innerText: color.name,
+          innerText: prefix.includes("css")
+            ? handleAliases(color.name)
+            : color.name,
           style: `color: var(--${
             color.darkText ? "dark" : "light"
           }); background-color: ${color.hexValue}`,
@@ -70,10 +80,12 @@ const render = (color, result) => {
 
       palette.colors.forEach((color, i) => {
         const main = elm(`#${prefix}-${i}-main`);
-        main.innerText = color.name;
-        main.style = `color: var(--${
-          color.darkText ? "dark" : "light"
-        }); background-color: ${color.hexValue}`;
+        (main.innerText = prefix.includes("css")
+          ? handleAliases(color.name)
+          : color.name),
+          (main.style = `color: var(--${
+            color.darkText ? "dark" : "light"
+          }); background-color: ${color.hexValue}`);
 
         const hex = elm(`#${prefix}-${i}-hex`);
         hex.innerText = color.hexValue.replace("#", "");
