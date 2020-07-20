@@ -229,10 +229,43 @@ body {
 .palette-box {
   border: 1px solid var(--mid);
   border-radius: 12px;
+  position: relative;
+}
+
+.palette-box::before {
+  content: "";
+  position: absolute;
+  right: var(--space-xl);
+  top: 0;
+  transform: translate(0, -50%);
+  border: 1px solid var(--mid);
+  border-radius: 50%;
+  background-color: #fff;
+  height: var(--space-xl);
+  width: var(--space-xl);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 80%;
+}
+
+#ant-design.palette-box::before {
+  background-image: url(../images/ant.svg);
+}
+
+#native-css.palette-box::before {
+  background-image: url(../images/css.svg);
+}
+
+#materialize.palette-box::before {
+  background-image: url(../images/materialize.svg);
+}
+
+#tailwind.palette-box::before {
+  background-image: url(../images/tailwind.svg);
 }
 
 .palette-box:not(:last-child) {
-  margin-bottom: var(--space-l);
+  margin-bottom: var(--space-xl);
 }
 
 .palette-name {
