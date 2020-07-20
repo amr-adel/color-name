@@ -8,9 +8,15 @@ const handleAliases = (colorName) => {
   return colorName;
 };
 
-const render = (color, result) => {
-  elm("body").classList = "result";
-  elm("body").style.setProperty("--sample", `#${color}`);
+const render = (color, result, darkTextOnSample) => {
+  const body = elm("body");
+
+  body.classList = "result";
+  body.style.setProperty("--sample", `#${color}`);
+  body.style.setProperty(
+    "--text-on-sample",
+    darkTextOnSample ? "var(--dark)" : "var(--light)"
+  );
 
   if (!elm("#sample")) {
     const sampleDiv = create("div", {

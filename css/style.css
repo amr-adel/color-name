@@ -13,6 +13,9 @@
   --dark: #484e4a;
   --yellow: #e9cb47;
   --green: #00a19b;
+
+  --shadow-s: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 *,
@@ -184,7 +187,7 @@ body {
   display: none;
   position: relative;
   border-bottom: var(--space-l) solid var(--sample);
-  background: #fff url("../images/dot.svg") repeat scroll 0% 0%;
+  background: url("../images/dot.svg") repeat scroll 0% 0%;
 }
 
 .result .results-section {
@@ -231,12 +234,12 @@ body {
   border-radius: 12px;
   position: relative;
   background-color: #fff;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow);
 }
 
 .palette-box::before {
   content: "";
+  filter: grayscale(65%);
   position: absolute;
   right: var(--space-xl);
   top: 0;
@@ -249,7 +252,7 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 80%;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-s);
 }
 
 #ant-design.palette-box::before {
@@ -275,7 +278,7 @@ body {
 .palette-name {
   font-size: var(--space);
   line-height: var(--space-xl);
-  border-bottom: 1px solid var(--mid);
+  border-bottom: 1px solid var(--light);
   padding: 0 var(--space-xs);
   font-weight: 400;
   text-align: center;
@@ -302,6 +305,7 @@ body {
   border-radius: var(--space);
   margin-bottom: var(--space-xs);
   background-color: var(--green);
+  box-shadow: var(--shadow-s);
 }
 
 .single-result-main::after {
@@ -346,13 +350,12 @@ body {
   transform: translate(-50%, 50%);
   display: block;
   border-radius: 50%;
-  color: var(--yellow);
-  background-color: var(--dark);
+  color: var(--sample);
+  background-color: var(--text-on-sample);
   padding: var(--space-xxs);
-  border: 3px solid var(--light);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.2s ease-out;
+  border: 5px solid #fff;
+  box-shadow: var(--shadow-s);
+  transition: padding 0.1s ease-out;
 }
 /* MENU ============================================================= */
 .header .menu-toggle {
@@ -463,6 +466,7 @@ body {
   }
 
   .to-top:hover {
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    padding-top: 5px;
+    padding-bottom: 11px;
   }
 }

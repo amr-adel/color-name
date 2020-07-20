@@ -2,26 +2,26 @@ import antPalette from "./antPalette.js";
 import cssPalette from "./cssPalette.js";
 import materializePalette from "./materializePalette.js";
 import tailwindPalette from "./tailwindPalette.js";
-import { elm, create } from "./helpers.js";
+import { elm } from "./helpers.js";
 import render from "./render.js";
 import handleMenu from "./handelMenu.js";
 
 const palettes = [
   {
-    name: "Ant Design",
-    palette: antPalette,
-  },
-  {
     name: "Native CSS",
     palette: cssPalette,
   },
   {
-    name: "Materialize",
-    palette: materializePalette,
+    name: "Ant Design",
+    palette: antPalette,
   },
   {
     name: "Tailwind",
     palette: tailwindPalette,
+  },
+  {
+    name: "Materialize",
+    palette: materializePalette,
   },
 ];
 
@@ -40,7 +40,37 @@ const getRandomHexColor = () => {
   return colorCode;
 };
 
-// Calculate distance between 2 colors (color1 & color2 are RGB arrays)
+// Calculate relative luminance of a color (color is an RGB arrays)
+// https://stackoverflow.com/a/9733420
+const getRelativeLuminanace = (color) => {
+  const rgb = color.map((value) => {
+    value /= 255;
+    return value <= 0.03928
+      ? value / 12.92
+      : Math.pow((value + 0.055) / 1.055, 2.4);
+  });
+
+  const [R, G, B] = rgb;
+
+  return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+};
+
+// Calculate contast between 2 colors (color1 & color2 are RGB arrays)
+const getContrast = (color1, color2) => {
+  var lum1 = getRelativeLuminanace(color1);
+  var lum2 = getRelativeLuminanace(color2);
+
+  if (lum1 === lum2) return 0;
+  else {
+    var lightest = lum1 > lum2 ? lum1 : lum2;
+    var darkest = lum1 < lum2 ? lum1 : lum2;
+
+    const contrast = (lightest + 0.05) / (darkest + 0.05);
+    return contrast;
+  }
+};
+
+// Calculate Euclidean distance between 2 colors (color1 & color2 are RGB arrays)
 const getDistance = (color1, color2) => {
   return (
     // https://en.wikipedia.org/wiki/Color_difference
@@ -74,8 +104,8 @@ const getNearest = (sample, palette) => {
       const candidateRGB = hexToRGB(candidate.hexValue.replace("#", ""));
       // For best contrast against hexValue (background color)
       const darkText =
-        getDistance(hexToRGB("484e4a"), candidateRGB) >
-        getDistance(hexToRGB("eff0ea"), candidateRGB);
+        getContrast(hexToRGB("484e4a"), candidateRGB) >
+        getContrast(hexToRGB("eff0ea"), candidateRGB);
 
       return {
         ...candidate,
@@ -90,7 +120,7 @@ const getNearest = (sample, palette) => {
 };
 
 // RUN APP ==========================================================================
-const run = (color) => {
+const run = (sample) => {
   console.clear();
   console.time();
 
@@ -99,11 +129,15 @@ const run = (color) => {
   for (let palette of palettes) {
     result.push({
       name: palette.name,
-      colors: getNearest(color, palette.palette),
+      colors: getNearest(sample, palette.palette),
     });
   }
 
-  render(color, result);
+  const darkTextOnSample =
+    getContrast(hexToRGB("484e4a"), hexToRGB(sample)) >
+    getContrast(hexToRGB("eff0ea"), hexToRGB(sample));
+
+  render(sample, result, darkTextOnSample);
   console.timeEnd();
 };
 
