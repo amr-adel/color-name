@@ -169,11 +169,14 @@ colorInput.addEventListener("blur", () => {
 });
 
 // Get random hex color and run app
-elm("#random").addEventListener("click", () => {
+elm("#random").addEventListener("click", (e) => {
   const color = getRandomHexColor();
   colorInput.value = color;
   lastColor = color;
   run(color);
+  setTimeout(() => {
+    elm("#random").blur();
+  }, 100);
 });
 
 // Toggle menu
@@ -184,7 +187,13 @@ toggle.addEventListener("click", () => {
 });
 
 // Scroll to top
-elm("#to-top").addEventListener("click", () => {
+const toTop = elm("#to-top");
+toTop.addEventListener("click", () => {
+  toTop.classList.add("fixed");
+  setTimeout(() => {
+    toTop.classList.remove("fixed");
+  }, 1000);
+
   return window.scrollTo({
     top: 0,
     left: 0,

@@ -140,24 +140,44 @@ body {
   color: var(--mid);
 }
 
-.random,
-.random:focus {
+.random {
   display: block;
   width: var(--space-xxl);
   height: var(--space-xxl);
-  border: 1px solid var(--mid);
+  border: 2px dashed var(--mid);
   border-radius: 50%;
-  padding: 20px;
   color: var(--mid);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.3s ease-out, border 0.3s ease-out, transform 0.2s ease-out;
+}
+
+.random svg {
+  height: var(--space);
+  width: var(--space);
+}
+
+.random:active,
+.result .random:active {
+  transform: scale(0.9);
+}
+
+.random:focus {
+  color: var(--dark);
+  border: 2px dashed var(--dark);
 }
 
 .result .top {
   flex-grow: 0;
-  padding-bottom: calc(var(--space-xl) * 2);
 }
 
-.result .top .container {
-  flex-direction: row;
+.result .random {
+  color: var(--text-on-sample);
+  transform: scale(1.2);
+  margin-top: var(--space);
+  position: relative;
+  z-index: 2;
 }
 
 #sample {
@@ -355,7 +375,13 @@ body {
   padding: var(--space-xxs);
   border: 5px solid #fff;
   box-shadow: var(--shadow-s);
-  transition: padding 0.1s ease-out;
+  transition: padding 0.1s ease-out, opacity 0.5s ease-out;
+}
+
+.to-top.fixed {
+  position: fixed;
+  bottom: var(--space-l);
+  opacity: 0;
 }
 /* MENU ============================================================= */
 .header .menu-toggle {
@@ -390,6 +416,10 @@ body {
 .menu-body[data-state="visible"] {
   left: 0;
 }
+/* kEYFRAMES ANIMATION ============================================================= */
+@keyframes click-zoom {
+}
+
 /* MEDIA QUERIES ============================================================= */
 @media screen and (min-width: 640px) {
   .container {
@@ -417,10 +447,9 @@ body {
   }
 
   .random,
-  .random:focus {
+  #sample {
     width: calc(var(--space-xl) * 2);
     height: calc(var(--space-xl) * 2);
-    padding: var(--space-l);
   }
 }
 
@@ -430,25 +459,6 @@ body {
     margin: 0 auto;
     max-width: 1280px;
   }
-
-  .result .top {
-    padding-bottom: calc(var(--space-xxl) * 2);
-  }
-
-  .top .container {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .random,
-  .random:focus {
-    margin-left: var(--space-xxl);
-    width: var(--space-xl);
-    height: var(--space-xl);
-    border: none;
-    padding: 0;
-  }
 }
 
 @media screen and (hover: hover) {
@@ -456,13 +466,8 @@ body {
     cursor: pointer;
   }
 
-  .random,
-  .random:focus {
-    transition: color 0.3s ease-out;
-  }
-
   .random:hover {
-    color: var(--dark);
+    border: 2px dashed var(--dark);
   }
 
   .to-top:hover {
