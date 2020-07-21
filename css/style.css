@@ -207,7 +207,7 @@ body {
   display: none;
   position: relative;
   border-bottom: var(--space-l) solid var(--sample);
-  background: url("../images/dot.svg") repeat scroll 0% 0%;
+  background: #fff url("../images/dot.svg") repeat scroll 0% 0%;
 }
 
 .result .results-section {
@@ -380,31 +380,48 @@ body {
 
 .to-top.fixed {
   position: fixed;
-  bottom: var(--space-l);
-  opacity: 0;
+  animation: to-top 0.7s forwards;
 }
 /* MENU ============================================================= */
-.header .menu-toggle {
+body[data-menu-state="visible"] {
+  overflow: hidden;
+}
+
+.menu-toggle {
   height: var(--space-xl);
   width: var(--space-xl);
   padding: var(--space-xs);
   padding-right: 0;
   color: var(--light);
+  position: relative;
 }
 
-.header .menu-toggle[data-state="hidden"] svg.visible {
-  display: none;
+.menu-toggle svg {
+  transition: transform 0.2s ease-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--space);
+  height: var(--space);
+  transform: translate(-50%, -50%) scale(1);
 }
 
-.header .menu-toggle[data-state="visible"] svg.hidden {
-  display: none;
+body[data-menu-state="hidden"] .menu-toggle svg.visible {
+  transform: translate(-50%, -50%) scale(0);
+  /* display: none; */
+}
+
+body[data-menu-state="visible"] .menu-toggle svg.hidden {
+  transform: translate(-50%, -50%) scale(0);
+  /* display: none; */
 }
 
 .menu-body {
   z-index: 3;
   position: fixed;
-  padding-top: var(--space-xxl);
+  /* padding-top: var(--space-xxl); */
   top: 0;
+  top: var(--space-xxl);
   left: 0;
   left: 100vw;
   right: 0;
@@ -413,11 +430,24 @@ body {
   transition: left 0.2s ease-out;
 }
 
-.menu-body[data-state="visible"] {
+body[data-menu-state="visible"] .menu-body {
   left: 0;
 }
 /* kEYFRAMES ANIMATION ============================================================= */
-@keyframes click-zoom {
+@keyframes to-top {
+  0% {
+    bottom: var(--space-xl);
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 0.5;
+  }
+
+  100% {
+    bottom: 75%;
+    opacity: 0;
+  }
 }
 
 /* MEDIA QUERIES ============================================================= */
@@ -462,6 +492,10 @@ body {
 }
 
 @media screen and (hover: hover) {
+  body[data-menu-state="visible"] {
+    padding-right: var(--space-s);
+  }
+
   button {
     cursor: pointer;
   }

@@ -180,10 +180,9 @@ elm("#random").addEventListener("click", (e) => {
 });
 
 // Toggle menu
-const toggle = elm("#menu-toggle");
-toggle.addEventListener("click", () => {
-  const toState = toggle.dataset.state === "hidden" ? "visible" : "hidden";
-  return handleMenu(toState);
+elm("#menu-toggle").addEventListener("click", () => {
+  const currentState = elm("body").dataset.menuState;
+  return handleMenu(currentState);
 });
 
 // Scroll to top

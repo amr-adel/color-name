@@ -3,6 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- https://realfavicongenerator.net/ -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/app-icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/app-icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/app-icons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/images/app-icons/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/images/app-icons/safari-pinned-tab.svg"
+      color="#e9cb47"
+    />
+    <link rel="shortcut icon" href="/images/app-icons/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#eff0ea" />
+    <meta
+      name="msapplication-config"
+      content="/images/app-icons/browserconfig.xml"
+    />
+    <meta name="theme-color" content="#eff0ea" />
+
     <meta
       name="description"
       content="A handy tool to get the color name or the -Euclidean- nearest one in your favorite palette."
@@ -21,7 +53,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>ColorName</title>
   </head>
-  <body>
+  <body data-menu-state="hidden">
     <header class="header">
       <div class="container">
         <h1 class="brand">Color<span class="yellow">Name</span></h1>
@@ -65,7 +97,7 @@
       </section>
     </main>
 
-    <aside class="menu-body" id="menu-body" data-state="hidden">
+    <aside class="menu-body" id="menu-body">
       <div class="container">
         menu
       </div>

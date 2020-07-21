@@ -1,11 +1,9 @@
 import { elm, create } from "./helpers.js";
 
-const handleMenu = (toState) => {
+const handleMenu = (currentState) => {
+  const toState = currentState === "hidden" ? "visible" : "hidden";
+  elm("body").dataset.menuState = toState;
   console.log(toState);
-  elm("#menu-toggle").dataset.state = toState;
-  elm("#menu-body").dataset.state = toState;
-
-  elm("body").style.overflow = toState === "visible" ? "hidden" : "auto";
 };
 
 export default handleMenu;
