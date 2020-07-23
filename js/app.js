@@ -2,7 +2,7 @@ import antPalette from "./antPalette.js";
 import cssPalette from "./cssPalette.js";
 import materializePalette from "./materializePalette.js";
 import tailwindPalette from "./tailwindPalette.js";
-import { elm } from "./helpers.js";
+import { elm, scrollToTop } from "./helpers.js";
 import render from "./render.js";
 import handleMenu from "./handelMenu.js";
 import handleHistory from "./handleHistory.js";
@@ -173,7 +173,7 @@ colorInput.addEventListener("blur", () => {
 });
 
 // Get random hex color and run app
-elm("#random").addEventListener("click", (e) => {
+elm("#random").addEventListener("click", () => {
   const color = getRandomHexColor();
   run(color);
   setTimeout(() => {
@@ -194,18 +194,14 @@ toTop.addEventListener("click", () => {
   setTimeout(() => {
     toTop.classList.remove("fixed");
   }, 1000);
-
-  return window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "smooth",
-  });
+  scrollToTop();
 });
 
 // Rerun a history color
 elm("#history-list").addEventListener("click", (e) => {
-  elm("#menu-toggle").click();
   if (e.target.tagName === "BUTTON") run(e.target.id);
+  elm("#menu-toggle").click();
+  scrollToTop();
 });
 
 // To add history colors to menu

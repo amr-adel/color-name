@@ -1,4 +1,4 @@
-import { elm } from "./helpers.js";
+import { elm, scrollToTop } from "./helpers.js";
 
 const handleMenu = (currentState) => {
   const toState = currentState === "hidden" ? "visible" : "hidden";
@@ -7,8 +7,8 @@ const handleMenu = (currentState) => {
   // Scroll history to top
   if (toState === "hidden") {
     setTimeout(() => {
-      elm("#history-list").scrollTo(0, 0);
-      elm("#menu-body .container").scrollTo(0, 0);
+      scrollToTop("#menu-body .container");
+      scrollToTop("#history-list");
     }, 300);
   }
 };

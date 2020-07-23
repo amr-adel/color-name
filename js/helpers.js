@@ -13,3 +13,14 @@ export const create = (tag, props) => {
 
   return element;
 };
+
+// Scroll to top
+export const scrollToTop = (element, behavior) => {
+  element = element ? elm(element) : window;
+
+  element.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: behavior === "smooth" || element === window ? "smooth" : "auto",
+  });
+};
