@@ -122,9 +122,6 @@ const getNearest = (sample, palette) => {
 
 // RUN APP ==========================================================================
 const run = (sample) => {
-  console.clear();
-  console.time();
-
   let result = [];
 
   for (let palette of palettes) {
@@ -143,7 +140,6 @@ const run = (sample) => {
 
   render(sample, result, darkTextOnSample);
   handleHistory("add", sample);
-  console.timeEnd();
 };
 
 // EVENT LISTENERS ==========================================================================
