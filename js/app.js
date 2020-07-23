@@ -134,6 +134,9 @@ const run = (sample) => {
     });
   }
 
+  colorInput.value = sample;
+  lastColor = sample;
+
   const darkTextOnSample =
     getContrast(hexToRGB("484e4a"), hexToRGB(sample)) >
     getContrast(hexToRGB("eff0ea"), hexToRGB(sample));
@@ -156,7 +159,6 @@ colorInput.addEventListener("focus", (event) => {
     input.value = input.value.replace(/[^\da-fA-F]/g, "").toLowerCase();
 
     if (input.value !== lastColor && validHex.test(input.value)) {
-      lastColor = input.value;
       input.blur();
       run(input.value);
     } else {
@@ -173,8 +175,6 @@ colorInput.addEventListener("blur", () => {
 // Get random hex color and run app
 elm("#random").addEventListener("click", (e) => {
   const color = getRandomHexColor();
-  colorInput.value = color;
-  lastColor = color;
   run(color);
   setTimeout(() => {
     elm("#random").blur();
