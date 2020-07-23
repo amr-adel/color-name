@@ -5,6 +5,7 @@ import tailwindPalette from "./tailwindPalette.js";
 import { elm } from "./helpers.js";
 import render from "./render.js";
 import handleMenu from "./handelMenu.js";
+import handleHistory from "./handleHistory.js";
 
 const palettes = [
   {
@@ -138,6 +139,7 @@ const run = (sample) => {
     getContrast(hexToRGB("eff0ea"), hexToRGB(sample));
 
   render(sample, result, darkTextOnSample);
+  handleHistory("add", sample);
   console.timeEnd();
 };
 
@@ -199,3 +201,12 @@ toTop.addEventListener("click", () => {
     behavior: "smooth",
   });
 });
+
+// Rerun a history color
+elm("#history-list").addEventListener("click", (e) => {
+  elm("#menu-toggle").click();
+  if (e.target.tagName === "BUTTON") run(e.target.id);
+});
+
+// To add history colors to menu
+handleHistory();

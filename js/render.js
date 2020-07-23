@@ -101,8 +101,6 @@ const render = (color, result, darkTextOnSample) => {
       });
     }
   }
-
-  console.log(`Render: #${color}`, result);
 };
 
 export default render;
