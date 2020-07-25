@@ -195,9 +195,11 @@ toTop.addEventListener("click", () => {
 
 // Rerun a history color
 elm("#history-list").addEventListener("click", (e) => {
-  if (e.target.tagName === "BUTTON") run(e.target.id);
-  elm("#menu-toggle").click();
-  scrollToTop();
+  if (e.target.tagName === "BUTTON") {
+    run(e.target.id);
+    elm("#menu-toggle").click();
+    scrollToTop();
+  }
 });
 
 // To add history colors to menu
