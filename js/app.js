@@ -158,7 +158,6 @@ colorInput.addEventListener("focus", (event) => {
       input.blur();
       run(input.value);
     } else {
-      console.log("Cleaned!");
     }
   }, 50);
 });

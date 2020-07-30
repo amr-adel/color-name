@@ -1,4 +1,4 @@
-const cacheName = "colorName-testing-2";
+const cacheName = "colorName-1.0.0";
 
 const precacheResources = [
   "/",
