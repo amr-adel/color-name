@@ -1,4 +1,4 @@
-const antPalette = {
+export const antPalette: Record<string, string> = {
   "red-1": "#fff1f0",
   "red-2": "#ffccc7",
   "red-3": "#ffa39e",
@@ -133,5 +133,3 @@ const antPalette = {
   "gray-12": "#141414",
   "gray-13": "#000000",
 };
-
-export default antPalette;

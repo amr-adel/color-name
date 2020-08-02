@@ -1,11 +1,11 @@
-import antPalette from "./antPalette";
-import cssPalette from "./cssPalette";
-import materializePalette from "./materializePalette";
-import tailwindPalette from "./tailwindPalette";
+import { antPalette } from "./antPalette";
+import { cssPalette } from "./cssPalette";
+import { materializePalette } from "./materializePalette";
+import { tailwindPalette } from "./tailwindPalette";
 import { elm, scrollToTop } from "./helpers";
-import render from "./render";
-import handleMenu from "./handelMenu";
-import handleHistory from "./handleHistory";
+import { render } from "./render";
+import { handleMenu } from "./handelMenu";
+import { handleHistory } from "./handleHistory";
 
 const palettes = [
   {
@@ -58,13 +58,13 @@ const getRelativeLuminanace = (color) => {
 
 // Calculate contast between 2 colors (color1 & color2 are RGB arrays)
 const getContrast = (color1, color2) => {
-  var lum1 = getRelativeLuminanace(color1);
-  var lum2 = getRelativeLuminanace(color2);
+  const lum1 = getRelativeLuminanace(color1);
+  const lum2 = getRelativeLuminanace(color2);
 
   if (lum1 === lum2) return 0;
   else {
-    var lightest = lum1 > lum2 ? lum1 : lum2;
-    var darkest = lum1 < lum2 ? lum1 : lum2;
+    const lightest = lum1 > lum2 ? lum1 : lum2;
+    const darkest = lum1 < lum2 ? lum1 : lum2;
 
     const contrast = (lightest + 0.05) / (darkest + 0.05);
     return contrast;
@@ -72,7 +72,7 @@ const getContrast = (color1, color2) => {
 };
 
 // Calculate Euclidean distance between 2 colors (color1 & color2 are RGB arrays)
-const getDistance = (color1, color2) => {
+const getDistance = (color1: number[], color2: number[]) => {
   return (
     // https://en.wikipedia.org/wiki/Color_difference
     Math.pow(Math.abs(color1[0] - color2[0]), 2) +
@@ -82,12 +82,26 @@ const getDistance = (color1, color2) => {
 };
 
 // Get nearest color (sample is a hexdecimal color, palette is an object of {colorName: hexValue})
-const getNearest = (sample, palette) => {
+interface candidate {
+  name: string;
+  hexValue: string;
+  distance: number;
+}
+
+interface topCandidate extends candidate {
+  darkText: boolean;
+  matchingPercentage: number;
+}
+
+const getNearest = (
+  sample: string,
+  palette: Record<string, string>
+): topCandidate[] => {
   const sampleRGB = hexToRGB(sample);
 
-  let candidates = [];
+  const candidates: candidate[] = [];
 
-  for (let color in palette) {
+  for (const color in palette) {
     const colorClean = palette[color].replace("#", "").toLowerCase();
     const colorRGB = hexToRGB(colorClean);
 
@@ -98,7 +112,7 @@ const getNearest = (sample, palette) => {
     });
   }
 
-  const topCandidates = candidates
+  const topCandidates: topCandidate[] = candidates
     .sort((a, b) => a.distance - b.distance)
     .slice(0, 3)
     .map((candidate) => {
@@ -113,7 +127,7 @@ const getNearest = (sample, palette) => {
         darkText,
         // 195075 is the distance between white (255, 255, 255) and balck (0, 0, 0)
         matchingPercentage:
-          100 - ((candidate.distance * 100) / 195075).toFixed(3),
+          100 - parseFloat(((candidate.distance * 100) / 195075).toFixed(3)),
       };
     });
 
@@ -121,10 +135,15 @@ const getNearest = (sample, palette) => {
 };
 
 // RUN APP ==========================================================================
-const run = (sample) => {
-  let result = [];
+export interface singleResult {
+  name: string;
+  colors: topCandidate[];
+}
 
-  for (let palette of palettes) {
+const run = (sample: string): void => {
+  const result: singleResult[] = [];
+
+  for (const palette of palettes) {
     result.push({
       name: palette.name,
       colors: getNearest(sample, palette.palette),
@@ -145,19 +164,18 @@ const run = (sample) => {
 // EVENT LISTENERS ==========================================================================
 let cleanInput;
 let lastColor = "";
-const colorInput = elm("#color-input");
+const colorInput = elm("#color-input") as HTMLInputElement;
 
 // On input focus, clean value and run app when it's a valid hex color
 colorInput.addEventListener("focus", (event) => {
   cleanInput = setInterval(() => {
     const validHex = /\b[\da-f]{6}\b/g;
-    const input = event.target;
+    const input = event.target as HTMLInputElement;
     input.value = input.value.replace(/[^\da-fA-F]/g, "").toLowerCase();
 
     if (input.value !== lastColor && validHex.test(input.value)) {
       input.blur();
       run(input.value);
-    } else {
     }
   }, 50);
 });
@@ -194,8 +212,9 @@ toTop.addEventListener("click", () => {
 
 // Rerun a history color
 elm("#history-list").addEventListener("click", (e) => {
-  if (e.target.tagName === "BUTTON") {
-    run(e.target.id);
+  const element = e.target as HTMLLIElement;
+  if (element.tagName === "BUTTON") {
+    run(element.id);
     elm("#menu-toggle").click();
     scrollToTop();
   }

@@ -1,4 +1,4 @@
-const tailwindPalette = {
+export const tailwindPalette: Record<string, string> = {
   black: "#000000",
   "gray-100": "#f7fafc",
   "gray-200": "#edf2f7",
@@ -92,5 +92,3 @@ const tailwindPalette = {
   "pink-900": "#702459",
   white: "#ffffff",
 };
-
-export default tailwindPalette;

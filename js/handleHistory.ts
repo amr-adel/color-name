@@ -1,6 +1,6 @@
 import { elm, create } from "./helpers";
 
-const handleHistory = (action, color) => {
+export const handleHistory = (action?: string, color?: string): void => {
   const history = JSON.parse(localStorage.getItem("history")) || [];
 
   if (action === "add") {
@@ -36,5 +36,3 @@ const handleHistory = (action, color) => {
 
   localStorage.setItem("history", JSON.stringify(history));
 };
-
-export default handleHistory;

@@ -3,11 +3,14 @@ export const elm = (selector: string): HTMLElement =>
   document.querySelector(selector);
 
 // Get DOM element
-export const create = (tag: string, props: {}): HTMLElement => {
+export const create = (
+  tag: string,
+  props: Record<string, string | number>
+): HTMLElement => {
   const element = document.createElement(tag);
 
   if (props) {
-    for (let prop in props) {
+    for (const prop in props) {
       element[prop] = props[prop];
     }
   }

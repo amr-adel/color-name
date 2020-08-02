@@ -1,4 +1,4 @@
-const materializePalette = {
+export const materializePalette: Record<string, string> = {
   black: "#000000",
   white: "#ffffff",
   "red lighten-5": "#ffebee",
@@ -245,5 +245,3 @@ const materializePalette = {
   "blue-grey darken-3": "#37474f",
   "blue-grey darken-4": "#263238",
 };
-
-export default materializePalette;

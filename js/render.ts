@@ -1,4 +1,5 @@
 import { elm, create } from "./helpers";
+import { singleResult } from "./app";
 
 const handleAliases = (colorName) => {
   if (colorName === "cyan") return "cyan, aqua";
@@ -8,10 +9,14 @@ const handleAliases = (colorName) => {
   return colorName;
 };
 
-const render = (color, result, darkTextOnSample) => {
+export const render = (
+  color: string,
+  result: singleResult[],
+  darkTextOnSample: boolean
+): void => {
   const body = elm("body");
 
-  body.classList = "result";
+  body.classList.add("result");
   body.style.setProperty("--sample", `#${color}`);
   body.style.setProperty(
     "--text-on-sample",
@@ -28,7 +33,7 @@ const render = (color, result, darkTextOnSample) => {
 
   // Create palette boxes
   if (!elm(".palette-box")) {
-    for (let palette of result) {
+    for (const palette of result) {
       const prefix = palette.name.toLowerCase().replace(" ", "-");
 
       const paletteBox = create("div", {
@@ -81,26 +86,25 @@ const render = (color, result, darkTextOnSample) => {
     }
   } else {
     // Modifay values only
-    for (let palette of result) {
+    for (const palette of result) {
       const prefix = palette.name.toLowerCase().replace(" ", "-");
 
       palette.colors.forEach((color, i) => {
         const main = elm(`#${prefix}-${i}-main`);
-        (main.innerText = prefix.includes("css")
+
+        main.innerText = prefix.includes("css")
           ? handleAliases(color.name)
-          : color.name),
-          (main.style = `color: var(--${
-            color.darkText ? "dark" : "light"
-          }); background-color: ${color.hexValue}`);
+          : color.name;
+
+        main.style.color = `var(--${color.darkText ? "dark" : "light"})`;
+        main.style.backgroundColor = color.hexValue;
 
         const hex = elm(`#${prefix}-${i}-hex`);
         hex.innerText = color.hexValue.replace("#", "");
 
         const percentage = elm(`#${prefix}-${i}-percentage`);
-        percentage.innerText = color.matchingPercentage;
+        percentage.innerText = String(color.matchingPercentage);
       });
     }
   }
 };
-
-export default render;

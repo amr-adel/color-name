@@ -15,12 +15,12 @@
   "bugs": {
     "url": "https://github.com/amr-adel/color-name/issues"
   },
-  "homepage": "https://github.com/amr-adel/color-name#readme",
+  "homepage": "https://color-name.netlify.app/",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.7.1",
+    "@typescript-eslint/parser": "^3.7.1",
     "cssnano": "^4.1.10",
-    "eslint": "5.16.0",
-    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint": "^7.6.0",
     "sass": "^1.26.10",
     "typescript": "^3.9.7"
   }

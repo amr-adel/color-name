@@ -1,6 +1,6 @@
 import { elm, scrollToTop } from "./helpers";
 
-const handleMenu = (currentState) => {
+export const handleMenu = (currentState: string): void => {
   const toState = currentState === "hidden" ? "visible" : "hidden";
   elm("body").dataset.menuState = toState;
 
@@ -12,5 +12,3 @@ const handleMenu = (currentState) => {
     }, 300);
   }
 };
-
-export default handleMenu;

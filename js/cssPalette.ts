@@ -1,4 +1,4 @@
-const cssPalette = {
+export const cssPalette: Record<string, string> = {
   aliceblue: "#f0f8ff",
   antiquewhite: "#faebd7",
   aquamarine: "#7fffd4",
@@ -139,5 +139,3 @@ const cssPalette = {
   yellow: "#ffff00",
   yellowgreen: "#9acd32",
 };
-
-export default cssPalette;
