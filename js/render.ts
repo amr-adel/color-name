@@ -1,4 +1,4 @@
-import { elm, create } from "./helpers.js";
+import { elm, create } from "./helpers";
 
 const handleAliases = (colorName) => {
   if (colorName === "cyan") return "cyan, aqua";

@@ -1,11 +1,11 @@
-import antPalette from "./antPalette.js";
-import cssPalette from "./cssPalette.js";
-import materializePalette from "./materializePalette.js";
-import tailwindPalette from "./tailwindPalette.js";
-import { elm, scrollToTop } from "./helpers.js";
-import render from "./render.js";
-import handleMenu from "./handelMenu.js";
-import handleHistory from "./handleHistory.js";
+import antPalette from "./antPalette";
+import cssPalette from "./cssPalette";
+import materializePalette from "./materializePalette";
+import tailwindPalette from "./tailwindPalette";
+import { elm, scrollToTop } from "./helpers";
+import render from "./render";
+import handleMenu from "./handelMenu";
+import handleHistory from "./handleHistory";
 
 const palettes = [
   {

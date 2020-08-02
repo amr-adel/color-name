@@ -1,4 +1,4 @@
-import { elm, create } from "./helpers.js";
+import { elm, create } from "./helpers";
 
 const handleHistory = (action, color) => {
   const history = JSON.parse(localStorage.getItem("history")) || [];
