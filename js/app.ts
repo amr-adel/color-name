@@ -26,11 +26,14 @@ const palettes = [
   },
 ];
 
+type rgbColor = number[];
+
 // Convert from hexadecimal to RGB format (color is a hexadecimal color)
-const hexToRGB = (color) => color.match(/.{2}/g).map((x) => parseInt(x, 16));
+const hexToRGB = (color: string): rgbColor =>
+  color.match(/.{2}/g).map((x) => parseInt(x, 16));
 
 // Generate random hex color
-const getRandomHexColor = () => {
+const getRandomHexColor = (): string => {
   let colorCode = "";
 
   while (colorCode.length < 6) {
@@ -43,7 +46,7 @@ const getRandomHexColor = () => {
 
 // Calculate relative luminance of a color (color is an RGB arrays)
 // https://stackoverflow.com/a/9733420
-const getRelativeLuminanace = (color) => {
+const getRelativeLuminanace = (color: rgbColor): number => {
   const rgb = color.map((value) => {
     value /= 255;
     return value <= 0.03928
@@ -57,7 +60,7 @@ const getRelativeLuminanace = (color) => {
 };
 
 // Calculate contast between 2 colors (color1 & color2 are RGB arrays)
-const getContrast = (color1, color2) => {
+const getContrast = (color1: rgbColor, color2: rgbColor): number => {
   const lum1 = getRelativeLuminanace(color1);
   const lum2 = getRelativeLuminanace(color2);
 
@@ -72,7 +75,7 @@ const getContrast = (color1, color2) => {
 };
 
 // Calculate Euclidean distance between 2 colors (color1 & color2 are RGB arrays)
-const getDistance = (color1: number[], color2: number[]) => {
+const getDistance = (color1: rgbColor, color2: rgbColor): number => {
   return (
     // https://en.wikipedia.org/wiki/Color_difference
     Math.pow(Math.abs(color1[0] - color2[0]), 2) +
@@ -162,7 +165,7 @@ const run = (sample: string): void => {
 };
 
 // EVENT LISTENERS ==========================================================================
-let cleanInput;
+let cleanInput: ReturnType<typeof setInterval>;
 let lastColor = "";
 const colorInput = elm("#color-input") as HTMLInputElement;
 

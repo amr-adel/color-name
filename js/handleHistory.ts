@@ -20,7 +20,7 @@ export const handleHistory = (action?: string, color?: string): void => {
 
   const historyList = new DocumentFragment();
 
-  history.forEach((color) => {
+  history.forEach((color: string): void => {
     const colorLi = create("li", {
       style: `--bg-color: #${color}`,
     });

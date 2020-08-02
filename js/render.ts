@@ -1,7 +1,7 @@
 import { elm, create } from "./helpers";
 import { singleResult } from "./app";
 
-const handleAliases = (colorName) => {
+const handleAliases = (colorName: string): string => {
   if (colorName === "cyan") return "cyan, aqua";
   else if (colorName === "magenta") return "magenta, fuchsia";
   else if (colorName.includes("gray")) return `${colorName}(grey)`;
