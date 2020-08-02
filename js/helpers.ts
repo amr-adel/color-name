@@ -1,8 +1,9 @@
 // Create element
-export const elm = (selector) => document.querySelector(selector);
+export const elm = (selector: string): HTMLElement =>
+  document.querySelector(selector);
 
 // Get DOM element
-export const create = (tag, props) => {
+export const create = (tag: string, props: {}): HTMLElement => {
   const element = document.createElement(tag);
 
   if (props) {
@@ -15,8 +16,8 @@ export const create = (tag, props) => {
 };
 
 // Scroll to top
-export const scrollToTop = (element, behavior) => {
-  element = element ? elm(element) : window;
+export const scrollToTop = (elmSelector?: string, behavior?: string): void => {
+  const element = elmSelector ? elm(elmSelector) : window;
 
   element.scrollTo({
     top: 0,

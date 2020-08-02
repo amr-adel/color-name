@@ -1,4 +1,4 @@
-import { elm, scrollToTop } from "./helpers.js";
+import { elm, scrollToTop } from "./helpers";
 
 const handleMenu = (currentState) => {
   const toState = currentState === "hidden" ? "visible" : "hidden";
