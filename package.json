@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A handy tool to get the corresponding color name from a given hexadecimal color code.",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "parcel index.html -o chrome",
     "build": "parcel build index.html --no-source-maps"
   },
   "repository": {
