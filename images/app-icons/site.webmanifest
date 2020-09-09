@@ -3,18 +3,17 @@
     "short_name": "ColorName",
     "icons": [
         {
-            "src": "/images/app-icons/android-chrome-192x192.png",
+            "src": "/images/app-icons/android-chrome-192x192.png?v=NmaPR6NJYE",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/images/app-icons/android-chrome-512x512.png",
+            "src": "/images/app-icons/android-chrome-512x512.png?v=NmaPR6NJYE",
             "sizes": "512x512",
             "type": "image/png"
         }
     ],
-	"start_url": "/index.html",
-    "theme_color": "#eff0ea",
-    "background_color": "#eff0ea",
+    "theme_color": "#edf2f7",
+    "background_color": "#edf2f7",
     "display": "standalone"
 }
