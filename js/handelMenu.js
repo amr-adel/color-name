@@ -7,8 +7,8 @@ const handleMenu = (currentState) => {
   // Scroll history to top
   if (toState === "hidden") {
     setTimeout(() => {
+      scrollToTop("#menu-body");
       scrollToTop("#menu-body .container");
-      scrollToTop("#history-list");
     }, 300);
   }
 };

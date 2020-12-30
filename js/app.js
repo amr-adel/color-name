@@ -157,8 +157,7 @@ colorInput.addEventListener("focus", (event) => {
     if (input.value !== lastColor && validHex.test(input.value)) {
       input.blur();
       run(input.value);
-    } else {
-    }
+    } else;
   }, 50);
 });
 
@@ -177,10 +176,12 @@ elm("#random").addEventListener("click", () => {
 });
 
 // Toggle menu
-elm("#menu-toggle").addEventListener("click", () => {
-  const currentState = elm("body").dataset.menuState;
-  return handleMenu(currentState);
-});
+[elm(".menu-backdrop"), elm("#menu-toggle")].forEach((obj) =>
+  obj.addEventListener("click", () => {
+    const currentState = elm("body").dataset.menuState;
+    return handleMenu(currentState);
+  })
+);
 
 // Scroll to top
 const toTop = elm("#to-top");

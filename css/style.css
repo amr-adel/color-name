@@ -390,9 +390,6 @@ body {
   animation: to-top 0.7s forwards;
 }
 /* MENU ============================================================= */
-body[data-menu-state="visible"] {
-  overflow: hidden;
-}
 
 .menu-toggle {
   height: var(--space-xl);
@@ -411,40 +408,72 @@ body[data-menu-state="visible"] {
   left: 50%;
   width: var(--space);
   height: var(--space);
+  transform: translate(-50%, -50%) scale(0);
+}
+
+body[data-menu-state="hidden"] .menu-toggle svg.hidden {
   transform: translate(-50%, -50%) scale(1);
 }
 
-body[data-menu-state="hidden"] .menu-toggle svg.visible {
-  transform: translate(-50%, -50%) scale(0);
-}
-
-body[data-menu-state="visible"] .menu-toggle svg.hidden {
-  transform: translate(-50%, -50%) scale(0);
+body[data-menu-state="visible"] .menu-toggle svg.visible {
+  transform: translate(-50%, -50%) scale(1);
 }
 
 body[data-menu-state="visible"] .menu-body {
-  left: 0;
+  transform: translateY(0);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+body[data-menu-state="visible"] .menu-body .container {
+  opacity: 1;
+}
+
+body[data-menu-state="visible"] .menu-backdrop {
+  opacity: 0.8;
+  bottom: 0;
+  right: 0;
 }
 
 .menu-body {
+  width: 90vw;
+  left: 5vw;
+
   z-index: 3;
   position: fixed;
-  left: 100vw;
-  right: 0;
   top: var(--space-xxl);
-  bottom: 0;
+  bottom: 7vw;
   background-color: var(--light);
-  transition: left 0.3s ease-out;
+  transform: translateY(-100vh);
+  transition: transform 0.25s ease-out;
+  border-radius: 0 0 var(--space-xs) var(--space-xs);
+  border: var(--space-xxs) solid var(--light);
+  border-top: none;
+}
+
+.menu-backdrop {
+  content: "";
+  position: fixed;
+  top: var(--space-xxl);
+  left: 0;
+  bottom: 100vh;
+  right: 100vw;
+  background-color: var(--dark);
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
 }
 
 .menu-body .container {
-  height: calc(100% - var(--space-xs));
-  margin: var(--space-xxs) auto;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
   overflow-y: auto;
-}
+  opacity: 0;
+  transition: opacity 0.2s ease-out 0.3s;
 
-.menu-body .container > div:not(:last-child) {
-  margin-bottom: var(--space);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .menu-body h3 {
@@ -488,6 +517,7 @@ body[data-menu-state="visible"] .menu-body {
   color: var(--dark);
   position: relative;
   width: 100%;
+  min-width: 250px;
   padding-left: calc(var(--space-xxl) * 2);
   margin: var(--space-xxs) 0;
   border: 2px solid var(--mid);
@@ -579,72 +609,39 @@ body[data-menu-state="visible"] .menu-body {
 }
 
 @media screen and (min-width: 768px) {
-  .menu-body .container {
+  .history-list {
     display: flex;
-    flex-direction: row-reverse;
     flex-wrap: wrap;
-    overflow: hidden;
+    justify-content: space-around;
   }
+}
 
-  .extras {
-    width: calc(100% - 304px);
-    margin-right: auto;
-  }
-
-  .history {
-    width: 280px;
-    max-height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .history-list,
-  .extras {
+@media screen and (min-width: 1024px) {
+  .menu-body {
     overflow-y: auto;
+    bottom: auto;
+    max-height: calc(100vh - calc(var(--space-xl) * 2));
+  }
+
+  .menu-body .container {
+    max-width: 800px;
+    padding: 0;
   }
 }
 
 @media screen and (min-width: 1280px) {
   .container {
-    padding: 0;
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: 1280px;
   }
 
-  .extras {
-    display: flex;
-    width: calc(100% - 324px);
-  }
-
-  .about {
-    width: 600px;
-    flex-shrink: 0;
-    flex-grow: 0;
-    margin-right: var(--space);
-  }
-
-  .history,
-  .contact {
-    width: 300px;
-  }
-
-  @media screen and (hover: hover) {
-    .menu-body .container {
-      flex-direction: row;
-    }
-
-    .extras {
-      margin-right: 0;
-      margin-left: var(--space);
-    }
+  .menu-body {
+    left: calc(50vw - 600px);
+    width: 1200px;
   }
 }
 
 @media screen and (hover: hover) {
-  body.result[data-menu-state="visible"] {
-    padding-right: var(--space-s);
-  }
-
   button {
     cursor: pointer;
   }

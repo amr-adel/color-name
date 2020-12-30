@@ -7,7 +7,7 @@ const handleHistory = (action, color) => {
     const colorIndex = history.indexOf(color);
     if (colorIndex > -1) history.splice(colorIndex, 1);
 
-    if (history.length === 10) {
+    if (history.length === 9) {
       history.pop();
     }
 
